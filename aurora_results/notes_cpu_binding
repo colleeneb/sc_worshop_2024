@@ -1,6 +1,6 @@
 
 note: g.sh is a GPU binding script that binds every pair of ranks to one GPU,
-starting with ranks 0 and 1 to GPU 0.0, 2 and 3 to GPU 0.1, etc. it's in the repo at:
+starting with ranks 0 and 1 to GPU 0.0, 2 and 3 to GPU 0.1, etc. it's in this repo as well.
 you can also see the mapping at the top of the log files.
 
 LESS PERFORMANCE CASE:
