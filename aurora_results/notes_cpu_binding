@@ -1,0 +1,27 @@
+
+note: g.sh is a GPU binding script that binds every pair of ranks to one GPU,
+starting with ranks 0 and 1 to GPU 0.0, 2 and 3 to GPU 0.1, etc. it's in the repo at:
+you can also see the mapping at the top of the log files.
+
+LESS PERFORMANCE CASE:
+
+run line: "mpiexec -n 24 -ppn 24 ./g.sh /home/bertoni/new_gamess/gamess/gamess.00.x"
+
+water.smaller.rcut1.pvc.logical.ngroup12.bad_cpu_binding.log:
+```
+TOTAL WALL CLOCK TIME=       6258.7 SECONDS, CPU UTILIZATION IS    99.59%
+```
+
+MORE PERFORMANT CASE:
+
+run line: "mpiexec -n 24 -ppn 24 --cpu-bind verbose,list:0-7:104-111:8-15:112-119:16-23:120-127:24-31:128-135:32-39:136-143:40-47:144-151:52-59:156-163:60-67:164-171:68-75:172-179:76-83:180-187:84-91:188-195:92-99:196-203 ./g.sh /home/bertoni/new_gamess/gamess/gamess.00.x"
+
+water.smaller.rcut1.pvc.logical.ngroup12.good_binding.log
+```
+ TOTAL WALL CLOCK TIME=       2652.4 SECONDS, CPU UTILIZATION IS   417.34%
+```
+
+
+You can verify at the top of each log file that the GPUs were mapped to ranks
+the same. In the bad_cpu_binding case, there's no output of
+CPU binding since none was done.
